@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/google/go-github/v24/github"
+	"github.com/google/go-github/v40/github"
 	"golang.org/x/oauth2"
 )
 
@@ -60,7 +60,7 @@ func (s *Stats) getTagDate(tags []*github.RepositoryTag, tag string) (time.Time,
 	ts := time.Unix(0, 0)
 	for _, t := range tags {
 		if tag == t.GetName() {
-			commit, _, err := s.Client.Repositories.GetCommit(s.ctx, s.User, s.Repo, t.GetCommit().GetSHA())
+			commit, _, err := s.Client.Repositories.GetCommit(s.ctx, s.User, s.Repo, t.GetCommit().GetSHA(), nil)
 			if err != nil {
 				return ts, err
 			}
@@ -73,7 +73,7 @@ func (s *Stats) getTagDate(tags []*github.RepositoryTag, tag string) (time.Time,
 
 func (s *Stats) getCommitDate(sha string) (time.Time, error) {
 	ts := time.Unix(0, 0)
-	commit, _, err := s.Client.Repositories.GetCommit(s.ctx, s.User, s.Repo, sha)
+	commit, _, err := s.Client.Repositories.GetCommit(s.ctx, s.User, s.Repo, sha, nil)
 	if err != nil {
 		return ts, err
 	}
@@ -90,7 +90,7 @@ func (s *Stats) getTagDates() (time.Time, time.Time, error) {
 		return since, until, err
 	}
 
-	//if we haven't specified a tag, take the last one
+	// if we haven't specified a tag, take the last one
 	if s.SinceTag == "" {
 		if s.SinceTag, err = s.getLatestTag(); err != nil {
 			return since, until, err
