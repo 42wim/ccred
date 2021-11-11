@@ -47,16 +47,15 @@ Get golang contributors between go1.11.4 and go1.11.5
 
 
 # Building
-Go 1.10+ is required. Make sure you have [Go](https://golang.org/doc/install) properly installed, including setting up your [GOPATH] (https://golang.org/doc/code.html#GOPATH)
+Go 1.17+ is required.
 
 ```
-cd $GOPATH
-go get github.com/42wim/ccred
+go install github.com/42wim/ccred
 ```
 
 You should now have dt binary in the bin directory:
 
 ```
-$ ls $GOPATH/bin/
+$ ls ~/go/bin/
 ccred
 ```
